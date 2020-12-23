@@ -45,15 +45,18 @@ class LotteryView(context: Context, attributeSet: AttributeSet?) : View(context,
         bgPaint.color = Color.rgb(99, 99, 99)
         bgPaint.style = Paint.Style.STROKE
         bgPaint.strokeWidth = 10f
+        bgPaint.isAntiAlias = true
 
         ballPaint.style = Paint.Style.STROKE
         ballPaint.strokeWidth = 4f
+        ballPaint.isAntiAlias = true
 
         textPaint.textAlign = Paint.Align.CENTER
         textPaint.textSize = defaultTextSize
 
         linePaint.color = Color.RED
         linePaint.strokeWidth = 4f
+        linePaint.isAntiAlias = true
     }
 
     fun setNames(names: List<String>) {
@@ -106,7 +109,7 @@ class LotteryView(context: Context, attributeSet: AttributeSet?) : View(context,
                 Ball(
                     if (i < nameList.size) nameList[i] else i.toString(), x, y,
                     Color.rgb(Random.nextInt(255), Random.nextInt(255), Random.nextInt(255)),
-                    ballRadius, 16, Random.nextInt(360), textSize = defaultTextSize
+                    ballRadius, 10, Random.nextInt(360), textSize = defaultTextSize
                 )
             )
         }
@@ -157,7 +160,7 @@ class LotteryView(context: Context, attributeSet: AttributeSet?) : View(context,
                 ballList.forEach { ball ->
                     moveToNewPoint(ball)
                 }
-                this.postDelayed({ invalidate() }, 20L)
+                this.postDelayed({ invalidate() }, 10L)
             }
             Status.STOP_ROLL -> {
                 ballList.forEach { ball ->
@@ -166,7 +169,7 @@ class LotteryView(context: Context, attributeSet: AttributeSet?) : View(context,
                 ballList.forEach { ball ->
                     moveToNewPoint(ball)
                 }
-                this.postDelayed({ invalidate() }, 20L)
+                this.postDelayed({ invalidate() }, 10L)
             }
             Status.FIND_ONE -> {
                 ballList.forEach { ball ->
@@ -182,16 +185,16 @@ class LotteryView(context: Context, attributeSet: AttributeSet?) : View(context,
                         dis
                     }
                     Log.d(tag, "findBall:  $findBall")
-                    delay = 2000L
+                    delay = 1000L
                     lineLength = 1f
                 } else {
-                    delay = 20L
+                    delay = 10L
                 }
                 if (lineLength < findBall!!.distance!!) {
                     val lineEndX = bgRadius + lineLength * findBall!!.wRatio!!
                     val lineEndY = bgRadius + lineLength * findBall!!.hRatio!!
                     drawLine(canvas, lineEndX, lineEndY)
-                    lineLength += 3
+                    lineLength += 6
                 } else {
                     lineLength = findBall!!.distance!!
                     currentStatus = Status.SHOW_GOAT
@@ -221,7 +224,7 @@ class LotteryView(context: Context, attributeSet: AttributeSet?) : View(context,
                         return
                     }
                 }
-                this.postDelayed({ invalidate() }, 20L)
+                this.postDelayed({ invalidate() }, 10L)
             }
 
         }
@@ -251,7 +254,7 @@ class LotteryView(context: Context, attributeSet: AttributeSet?) : View(context,
             ball.x = targetX
             ball.y = targetY
 
-            if (currentStatus == Status.START_ROLL && ball.speed < 100) ball.speed += 1
+            if (currentStatus == Status.START_ROLL && ball.speed < 160) ball.speed += 1
             if (currentStatus == Status.STOP_ROLL && ball.speed > 0) {
                 ball.speed -= 1
                 if (ball.speed == 0) {

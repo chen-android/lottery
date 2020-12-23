@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/confirm_name_bt"
         android:hint="输入名字，','隔开"
-        android:text="陈帅,刘照天，郑理，王鹏，陈宇，黄芳艳，金佳茜" />
+        android:text="" />
 
     <Button
         android:id="@+id/confirm_name_bt"
@@ -67,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         android:textSize="24sp"
-        tools:text="恭喜你获得陈帅的礼物"
+        tools:text="恭喜你获得xx的礼物"
         android:textColor="#000" />
 
 
